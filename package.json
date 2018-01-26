@@ -21,5 +21,20 @@
   "bugs": {
     "url": "https://github.com/zubairnahmed/poetry_dapp/issues"
   },
-  "homepage": "https://github.com/zubairnahmed/poetry_dapp#readme"
+  "homepage": "https://github.com/zubairnahmed/poetry_dapp#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "css-loader": "^0.28.9",
+    "image-loader": "0.0.1",
+    "image-webpack-loader": "^4.0.0",
+    "style-loader": "^0.19.1",
+    "url-loader": "^0.6.2",
+    "webpack": "^3.10.0"
+  },
+  "dependencies": {
+    "react": "^16.2.0",
+    "redux": "^3.7.2"
+  }
 }
