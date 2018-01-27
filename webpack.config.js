@@ -1,7 +1,7 @@
-const path = require('path');
+const path = require('path')
 
 config = {
-  entry: 'src/index.js',
+  entry: './src/index.js',
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'build')
@@ -18,17 +18,11 @@ config = {
         test: /\.css$/
       },
       {
-        test: /\.jpe?g$/,
-        use: [
-          {
-            loader: 'url-loader',
-            options: 400000
-          },
-          'image-webpack-loader'
-        ]
+        use: 'file-loader',
+        test: /\.jpe?g$/
       }
     ]
   }
 };
 
-module.exports = config;
+module.exports = config
