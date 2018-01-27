@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 
+import PoemCard from '../../components/PoemCard/PoemCard'
 export default class PoemContainer extends Component {
   constructor(props) {
     super(props)
@@ -14,7 +15,7 @@ export default class PoemContainer extends Component {
         },
         {
           title: 'Test2',
-          body: 'yes\nwow\n\ntheend',
+          body: 'yes<br>wow<br><br>theend',
           author: 'Zz',
           credits: 'You, me, us, them, everyone'
         },
@@ -38,7 +39,7 @@ export default class PoemContainer extends Component {
     return (
       <div>
         { this.state.poems.map(poem =>
-          <li> { poem.title }</li>
+          <PoemCard title={ poem.title } body={ poem.body } key={ poem.title }/>
         )}
       </div>
     )
