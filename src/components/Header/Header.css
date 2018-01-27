@@ -1,0 +1,5 @@
+.header-container {
+  width: 100%;
+  background-image: url("../../../assets/images/header-image.jpg");
+  background-size: cover;
+}
