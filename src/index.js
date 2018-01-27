@@ -1,11 +1,16 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
+import { createStore, applyMiddleware } from 'redux'
 import Header from './components/Header/Header'
 
-const AppContainer = (props) => {
-  return (
-    <Header title="Poetry" subtitle="Zubair Ahmed" />
-  )
-}
+import AppContainer from './containers'
+import reducers from './reducers'
 
-ReactDOM.render(<AppContainer />, document.getElementById('root'))
+const createStoreWithMiddleware = applyMiddleware()(createStore)
+
+ReactDOM.render(
+  <Provider store={ createStoreWithMiddleware(reducers) }>
+    <AppContainer />
+  </Provider>,
+  document.getElementById('root'))
