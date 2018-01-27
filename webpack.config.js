@@ -1,4 +1,5 @@
 const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 config = {
   entry: './src/index.js',
@@ -22,7 +23,15 @@ config = {
         test: /\.jpe?g$/
       }
     ]
-  }
+  },
+  devServer: {
+    contentBase: './build'
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './src/index.html'
+    })
+  ]
 };
 
 module.exports = config
