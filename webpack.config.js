@@ -1,7 +1,8 @@
-const path = require('path');
+const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 config = {
-  entry: 'src/index.js',
+  entry: './src/index.js',
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'build')
@@ -18,17 +19,19 @@ config = {
         test: /\.css$/
       },
       {
-        test: /\.jpe?g$/,
-        use: [
-          {
-            loader: 'url-loader',
-            options: 400000
-          },
-          'image-webpack-loader'
-        ]
+        use: 'file-loader',
+        test: /\.jpe?g$/
       }
     ]
-  }
+  },
+  devServer: {
+    contentBase: './build'
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './src/index.html'
+    })
+  ]
 };
 
-module.exports = config;
+module.exports = config
