@@ -31,17 +31,39 @@ export default class PoemContainer extends Component {
           author: 'Zz',
           credits: 'You, me, us, them, everyone'
         }
-      ]
+      ],
+      displayPoem: false,
+      poem: {}
     }
+
+    this.handleModalDisplay = this.handleModalDisplay.bind(this)
+  }
+
+  handleModalDisplay(poemTitle) {
+    const poem = this.state.poems.filter(poem => poem.title === poemTitle)[0]
+    this.setState({ displayPoem: true, poem})
   }
 
   render() {
+    const poetry = this.state.displayPoem
+    ? null
+    : createPoemList(this.state.poems, this.handleModalDisplay)
+
     return (
       <div>
-        { this.state.poems.map(poem =>
-          <PoemCard title={ poem.title } body={ poem.body } key={ poem.title }/>
-        )}
+        { poetry }
       </div>
     )
   }
+}
+
+const createPoemList = (poems, handleModalDisplay) => {
+  return poems.map(poem =>
+    <PoemCard
+      title={ poem.title }
+      body={ poem.body }
+      key={ poem.title }
+      handleModalDisplay={ handleModalDisplay }
+    />
+  )
 }
