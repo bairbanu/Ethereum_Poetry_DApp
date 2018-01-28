@@ -43,23 +43,27 @@ export default class PoemContainer extends Component {
     this.hideModal = this.hideModal.bind(this)
   }
 
-  showModalWithPoem(poemTitle) {
+  showModalWithPoem(poemTitle, event) {
+    event.stopPropagation()
     const poem = this.state.poems.filter(poem => poem.title === poemTitle)[0]
     this.setState({ displayPoem: true, poem})
   }
 
   hideModal() {
-    this.setState(prevState => { displayPoem: !prevState.displayPoem })
+    console.log('it came here')
+    this.setState(prevState => ({ displayPoem: !prevState.displayPoem, poem: {} }))
   }
 
   render() {
-    const showCardsOrModal = this.state.displayPoem
+    console.log('state of displayPoem:', this.state.displayPoem)
+    const showModal = this.state.displayPoem
     ? createPoemModal(this.state.poem)
-    : createPoemList(this.state.poems, this.showModalWithPoem)
+    : null
 
     return (
       <div onClick={ this.hideModal }>
-        { showCardsOrModal }
+        { showModal }
+        { createPoemList(this.state.poems, this.showModalWithPoem) }
       </div>
     )
   }
