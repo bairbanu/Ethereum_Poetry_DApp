@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 import PoemCard from '../../components/PoemCard/PoemCard'
 import Modal from '../../components/Modal/Modal'
 import Poem from '../../components/Poem/Poem'
 
-export default class PoemContainer extends Component {
+class PoemContainer extends Component {
   constructor(props) {
     super(props)
 
@@ -66,6 +67,14 @@ export default class PoemContainer extends Component {
     )
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    poems: state.poems
+  }
+}
+
+export default connect()(PoemContainer)
 
 const createPoemList = (poems, showModalWithPoem) => {
   return poems.map(poem =>
