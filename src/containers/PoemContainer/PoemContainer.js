@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 
 import PoemCard from '../../components/PoemCard/PoemCard'
+import Modal from '../../components/Modal/Modal'
+import Poem from '../../components/Poem/Poem'
+
 export default class PoemContainer extends Component {
   constructor(props) {
     super(props)
@@ -36,34 +39,47 @@ export default class PoemContainer extends Component {
       poem: {}
     }
 
-    this.handleModalDisplay = this.handleModalDisplay.bind(this)
+    this.showModalWithPoem = this.showModalWithPoem.bind(this)
+    this.hideModal = this.hideModal.bind(this)
   }
 
-  handleModalDisplay(poemTitle) {
+  showModalWithPoem(poemTitle) {
     const poem = this.state.poems.filter(poem => poem.title === poemTitle)[0]
     this.setState({ displayPoem: true, poem})
   }
 
+  hideModal() {
+    this.setState(prevState => { displayPoem: !prevState.displayPoem })
+  }
+
   render() {
-    const poetry = this.state.displayPoem
-    ? null
-    : createPoemList(this.state.poems, this.handleModalDisplay)
+    const showCardsOrModal = this.state.displayPoem
+    ? createPoemModal(this.state.poem)
+    : createPoemList(this.state.poems, this.showModalWithPoem)
 
     return (
-      <div>
-        { poetry }
+      <div onClick={ this.hideModal }>
+        { showCardsOrModal }
       </div>
     )
   }
 }
 
-const createPoemList = (poems, handleModalDisplay) => {
+const createPoemList = (poems, showModalWithPoem) => {
   return poems.map(poem =>
     <PoemCard
       title={ poem.title }
       body={ poem.body }
       key={ poem.title }
-      handleModalDisplay={ handleModalDisplay }
+      showModalWithPoem={ showModalWithPoem }
     />
+  )
+}
+
+const createPoemModal = (poem) => {
+  return (
+    <Modal>
+      <Poem poem={ poem } />
+    </Modal>
   )
 }
