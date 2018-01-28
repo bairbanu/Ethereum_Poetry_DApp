@@ -50,12 +50,10 @@ export default class PoemContainer extends Component {
   }
 
   hideModal() {
-    console.log('it came here')
     this.setState(prevState => ({ displayPoem: !prevState.displayPoem, poem: {} }))
   }
 
   render() {
-    console.log('state of displayPoem:', this.state.displayPoem)
     const showModal = this.state.displayPoem
     ? createPoemModal(this.state.poem)
     : null

@@ -1,4 +1,5 @@
 import React from 'react'
+import './Poem.css'
 
 const Poem = ({ poem }) => {
   return (
