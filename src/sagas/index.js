@@ -2,8 +2,10 @@ import { call, put, takeLatest } from 'redux-saga/effects'
 import { FETCH_POEMS_SUCCESS, FETCH_POEMS_FAILED} from '../actions/types'
 
 function fetchFromSmartContract(poemNumber, getPoem) {
-  getPoem(poemNumber, (err, poem) => {
-    return [poem]
+  return new Promise((resolve, reject) => {
+    getPoem(poemNumber, (err, poem) => {
+      resolve([poem])
+    })
   })
 }
 
