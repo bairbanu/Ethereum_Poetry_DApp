@@ -5,6 +5,7 @@ import { createStore, applyMiddleware } from 'redux'
 
 import { createLogger } from 'redux-logger'
 import createSageMiddleware from 'redux-saga'
+import processPoems from './middlewares/processPoems'
 
 import AppContainer from './containers'
 import reducers from './reducers'
@@ -17,7 +18,8 @@ const store = createStore(
   reducers,
   applyMiddleware(
     loggerMiddleware,
-    sagaMiddleware
+    sagaMiddleware,
+    processPoems
   )
 )
 
