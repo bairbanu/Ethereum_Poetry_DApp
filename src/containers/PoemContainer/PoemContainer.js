@@ -5,53 +5,54 @@ import PoemCard from '../../components/PoemCard/PoemCard'
 import Modal from '../../components/Modal/Modal'
 import Poem from '../../components/Poem/Poem'
 
+import { fetchPoems } from '../../actions'
+
 class PoemContainer extends Component {
   constructor(props) {
     super(props)
 
+    /* Connecting to Ethereum Ropsten Testnet */
+    if (typeof web3 !== 'undefined') {
+      web3 = new Web3(web3.currentProvider)
+    } else {
+      web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/'))
+    }
+
+    const contractAddress = '0x52A2bb63EA065e18ad4e1aB4d87857219a4dBe8d'
+    const contractABI = [ { "constant": true, "inputs": [ { "name": "number", "type": "uint256" } ], "name": "getPoem", "outputs": [ { "name": "", "type": "string" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [ { "name": "poem", "type": "string" } ], "name": "setPoem", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "payable": false, "stateMutability": "nonpayable", "type": "constructor" } ]
+
+    const MyContract = web3.eth.contract(contractABI)
+
+    // consider moving displayPoem and poem to redux state
     this.state = {
-      poems: [
-        {
-          title: 'Test',
-          body: 'yes\nwow\n\ntheend',
-          author: 'Zz',
-          credits: 'You, me, us, them, everyone'
-        },
-        {
-          title: 'Test2',
-          body: 'yes<br>wow<br><br>theend',
-          author: 'Zz',
-          credits: 'You, me, us, them, everyone'
-        },
-        {
-          title: 'Test3',
-          body: 'yes\nwow\n\ntheend',
-          author: 'Zz',
-          credits: 'You, me, us, them, everyone'
-        },
-        {
-          title: 'Test4',
-          body: 'yes\nwow\n\ntheend',
-          author: 'Zz',
-          credits: 'You, me, us, them, everyone'
-        }
-      ],
       displayPoem: false,
-      poem: {}
+      poem: {},
+      ContractInstance: MyContract.at(contractAddress)
     }
 
     this.showModalWithPoem = this.showModalWithPoem.bind(this)
     this.hideModal = this.hideModal.bind(this)
+    this.test = this.test.bind(this)
+  }
+
+  componentDidMount() {
+    this.props.fetchPoems()
   }
 
   showModalWithPoem(poemTitle, event) {
     event.stopPropagation()
-    const poem = this.state.poems.filter(poem => poem.title === poemTitle)[0]
+    const poem = this.props.poems.filter(poem => poem.title === poemTitle)[0]
     this.setState({ displayPoem: true, poem})
   }
 
   hideModal() {
     this.setState(prevState => ({ displayPoem: !prevState.displayPoem, poem: {} }))
+  }
+
+  test() {
+    this.state.ContractInstance.getPoem(0, (err, result) => {
+      console.log('poem:', result)
+    })
   }
 
   render() {
@@ -61,20 +62,19 @@ class PoemContainer extends Component {
 
     return (
       <div onClick={ this.hideModal }>
+        <button onClick={ this.test }> TEST SMART CONTRACT </button>
         { showModal }
-        { createPoemList(this.state.poems, this.showModalWithPoem) }
+        { createPoemList(this.props.poems, this.showModalWithPoem) }
       </div>
     )
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    poems: state.poems
-  }
+function mapStateToProps({ poems }) {
+  return { poems }
 }
 
-export default connect()(PoemContainer)
+export default connect(mapStateToProps, { fetchPoems })(PoemContainer)
 
 const createPoemList = (poems, showModalWithPoem) => {
   return poems.map(poem =>
