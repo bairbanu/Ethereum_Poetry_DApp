@@ -5,7 +5,7 @@ import PoemCard from '../../components/PoemCard/PoemCard'
 import Modal from '../../components/Modal/Modal'
 import Poem from '../../components/Poem/Poem'
 
-import { fetchPoems } from '../../actions'
+import { loadPoems } from '../../actions'
 
 class PoemContainer extends Component {
   constructor(props) {
@@ -32,11 +32,10 @@ class PoemContainer extends Component {
 
     this.showModalWithPoem = this.showModalWithPoem.bind(this)
     this.hideModal = this.hideModal.bind(this)
-    this.test = this.test.bind(this)
   }
 
   componentDidMount() {
-    this.props.fetchPoems()
+    this.props.loadPoems(this.state.ContractInstance.getPoem)
   }
 
   showModalWithPoem(poemTitle, event) {
@@ -49,12 +48,6 @@ class PoemContainer extends Component {
     this.setState(prevState => ({ displayPoem: !prevState.displayPoem, poem: {} }))
   }
 
-  test() {
-    this.state.ContractInstance.getPoem(0, (err, result) => {
-      console.log('poem:', result)
-    })
-  }
-
   render() {
     const showModal = this.state.displayPoem
     ? createPoemModal(this.state.poem)
@@ -62,7 +55,6 @@ class PoemContainer extends Component {
 
     return (
       <div onClick={ this.hideModal }>
-        <button onClick={ this.test }> TEST SMART CONTRACT </button>
         { showModal }
         { createPoemList(this.props.poems, this.showModalWithPoem) }
       </div>
@@ -74,7 +66,7 @@ function mapStateToProps({ poems }) {
   return { poems }
 }
 
-export default connect(mapStateToProps, { fetchPoems })(PoemContainer)
+export default connect(mapStateToProps, { loadPoems })(PoemContainer)
 
 const createPoemList = (poems, showModalWithPoem) => {
   return poems.map(poem =>
