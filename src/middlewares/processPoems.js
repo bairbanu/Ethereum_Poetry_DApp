@@ -1,6 +1,8 @@
+import { FETCH_POEMS_SUCCESS } from '../actions/types'
+
 export default function ({ dispatch }) {
   return next => action => {
-    if (action.type === 'FETCH_POEMS_SUCCESS') {
+    if (action.type === FETCH_POEMS_SUCCESS) {
       const { poems } = action
       poems.splice(poems.length - 1, 1)
 
