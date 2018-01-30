@@ -12,13 +12,12 @@ export default function ({ dispatch }) {
 
         const authorCredits = poemTitleBodyAuthorCredits[1].split('/author')
         const [author, credits] = authorCredits
-        const parsedCredits = credits.replace('/credits', '')
 
         return {
           title,
           body,
           author,
-          credits: parsedCredits
+          credits
         }
       })
 
