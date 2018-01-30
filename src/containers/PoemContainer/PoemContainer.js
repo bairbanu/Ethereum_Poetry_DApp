@@ -69,6 +69,9 @@ function mapStateToProps({ poems }) {
 export default connect(mapStateToProps, { loadPoems })(PoemContainer)
 
 const createPoemList = (poems, showModalWithPoem) => {
+  if (poems.length === 0)
+    return <h1> Loading poetry from the Ethereum Blockchain... </h1>
+
   return poems.map(poem =>
     <PoemCard
       title={ poem.title }

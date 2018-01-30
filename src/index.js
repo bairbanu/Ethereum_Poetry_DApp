@@ -6,6 +6,7 @@ import { createStore, applyMiddleware } from 'redux'
 import { createLogger } from 'redux-logger'
 import createSageMiddleware from 'redux-saga'
 import processPoems from './middlewares/processPoems'
+import waitThreeSeconds from './middlewares/waitThreeSeconds'
 
 import AppContainer from './containers'
 import reducers from './reducers'
@@ -19,7 +20,8 @@ const store = createStore(
   applyMiddleware(
     loggerMiddleware,
     sagaMiddleware,
-    processPoems
+    processPoems,
+    waitThreeSeconds
   )
 )
 
