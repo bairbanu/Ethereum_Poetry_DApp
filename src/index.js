@@ -1,11 +1,34 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Header from './components/Header/Header'
+import { Provider } from 'react-redux'
+import { createStore, applyMiddleware } from 'redux'
 
-const AppContainer = (props) => {
-  return (
-    <Header title="Poetry" subtitle="Zubair Ahmed" />
+import { createLogger } from 'redux-logger'
+import createSageMiddleware from 'redux-saga'
+import processPoems from './middlewares/processPoems'
+import waitThreeSeconds from './middlewares/waitThreeSeconds'
+
+import AppContainer from './containers'
+import reducers from './reducers'
+import mySaga from './sagas'
+
+const loggerMiddleware = createLogger()
+const sagaMiddleware = createSageMiddleware()
+
+const store = createStore(
+  reducers,
+  applyMiddleware(
+    loggerMiddleware,
+    sagaMiddleware,
+    processPoems,
+    waitThreeSeconds
   )
-}
+)
 
-ReactDOM.render(<AppContainer />, document.getElementById('root'))
+sagaMiddleware.run(mySaga)
+
+ReactDOM.render(
+  <Provider store={ store }>
+    <AppContainer />
+  </Provider>,
+  document.getElementById('app-root'))
