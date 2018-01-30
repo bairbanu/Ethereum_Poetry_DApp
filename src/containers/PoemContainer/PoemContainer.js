@@ -18,8 +18,8 @@ class PoemContainer extends Component {
       web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/'))
     }
 
-    const contractAddress = '0x52A2bb63EA065e18ad4e1aB4d87857219a4dBe8d'
-    const contractABI = [ { "constant": true, "inputs": [ { "name": "number", "type": "uint256" } ], "name": "getPoem", "outputs": [ { "name": "", "type": "string" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [ { "name": "poem", "type": "string" } ], "name": "setPoem", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "payable": false, "stateMutability": "nonpayable", "type": "constructor" } ]
+    const contractAddress = '0xd9cfed2e33b484201677a40fe6ffc497424da931'
+    const contractABI = [ { "constant": true, "inputs": [ { "name": "number", "type": "uint256" } ], "name": "getPoem", "outputs": [ { "name": "", "type": "string" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [ { "name": "number", "type": "uint256" }, { "name": "newPoem", "type": "string" } ], "name": "editPoem", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [ { "name": "poem", "type": "string" } ], "name": "setPoem", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "payable": false, "stateMutability": "nonpayable", "type": "constructor" } ]
 
     const MyContract = web3.eth.contract(contractABI)
 
