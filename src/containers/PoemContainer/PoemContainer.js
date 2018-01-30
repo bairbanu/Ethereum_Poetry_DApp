@@ -5,7 +5,7 @@ import PoemCard from '../../components/PoemCard/PoemCard'
 import Modal from '../../components/Modal/Modal'
 import Poem from '../../components/Poem/Poem'
 
-import { loadPoems } from '../../actions'
+import { fetchPoemsRequest } from '../../actions'
 
 class PoemContainer extends Component {
   constructor(props) {
@@ -35,7 +35,7 @@ class PoemContainer extends Component {
   }
 
   componentDidMount() {
-    this.props.loadPoems(this.state.ContractInstance.getPoem)
+    this.props.fetchPoemsRequest(this.state.ContractInstance.getPoem)
   }
 
   showModalWithPoem(poemTitle, event) {
@@ -66,7 +66,7 @@ function mapStateToProps({ poems }) {
   return { poems }
 }
 
-export default connect(mapStateToProps, { loadPoems })(PoemContainer)
+export default connect(mapStateToProps, { fetchPoemsRequest })(PoemContainer)
 
 const createPoemList = (poems, showModalWithPoem) => {
   if (poems.length === 0)

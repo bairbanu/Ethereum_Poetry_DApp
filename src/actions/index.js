@@ -1,8 +1,8 @@
-import { LOAD_POEMS } from './types'
+import { FETCH_POEMS_REQUEST } from './types'
 
-export function loadPoems(getPoem) {
+export function fetchPoemsRequest(getPoem) {
   return {
-    type: LOAD_POEMS,
+    type: FETCH_POEMS_REQUEST,
     payload: getPoem
   }
 }

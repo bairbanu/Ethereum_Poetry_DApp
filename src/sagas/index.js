@@ -24,7 +24,7 @@ function* fetchPoems(action) {
 }
 
 function* mySaga() {
-  yield takeLatest('LOAD_POEMS', fetchPoems)
+  yield takeLatest('FETCH_POEMS_REQUEST', fetchPoems)
 }
 
 export default mySaga
