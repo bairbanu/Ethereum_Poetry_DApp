@@ -9,7 +9,6 @@ export default function ({ dispatch }) {
         const poemTitleBody = poemTitleBodyAuthorCredits[0]
         const title = poemTitleBody.split('/title')[0]
         const body = poemTitleBody.split('/title')[1]
-        const parsedBody = processPoemBody(body)
 
         const authorCredits = poemTitleBodyAuthorCredits[1].split('/author')
         const [author, credits] = authorCredits
@@ -17,7 +16,7 @@ export default function ({ dispatch }) {
 
         return {
           title,
-          body: parsedBody,
+          body,
           author,
           credits: parsedCredits
         }
@@ -30,10 +29,4 @@ export default function ({ dispatch }) {
       next(action)
     }
   }
-}
-
-const processPoemBody = (body) => {
-  const parseLines = body.replace(/\/line/g, '{<br />}')
-  const parseParagraphs = parseLines.replace(/\/para/g, '{<br /><br />}')
-  return parseParagraphs
 }

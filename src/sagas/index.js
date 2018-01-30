@@ -17,7 +17,7 @@ function* fetchPoems(action) {
       poems.push(yield call(fetchFromSmartContract, poemCounter, action.payload))
       poemCounter++
     }
-    yield put({ type: FETCH_POEMS_SUCCESS, poems})
+    yield put({ type: FETCH_POEMS_SUCCESS, poems })
   } catch (e) {
     yield put({ type: FETCH_POEMS_FAILED, message: e.message })
   }
