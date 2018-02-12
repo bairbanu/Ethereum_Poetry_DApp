@@ -1,3 +1,13 @@
 # Ethereum Poetry DApp with React & Redux Frontend.
 
-A decentralized fullstack Ethereum application showcasing some of Zubair Ahmed's poetry. Uses IPFS for decentralized storage, Ethereum Ropsten Testnet for smart contract storage, and React/Redux for frontend UI/UX. Will also be deployed to Github Pages so application can be experienced without lag (IPFS is still a nascent technology).
+A decentralized fullstack Ethereum application to showcase poetry.
+
+# Tech Used:
+
+- Solidity for smart contracts
+- Remix IDE for testing
+- React/Redux for frontend UI/UX
+- Web3.js for talking with Ethereum
+- IPFS for decentralized storage
+- Ethereum Ropsten Testnet for smart contract storage
+
